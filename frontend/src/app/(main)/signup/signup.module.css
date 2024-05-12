@@ -1,0 +1,28 @@
+.wrapper {
+  min-height: rem(900px);
+  /* background-size: cover; */
+  /* background-image: url("https://images.pexels.com/photos/5849559/pexels-photo-5849559.jpeg?cs=srgb&dl=pexels-monstera-production-5849559.jpg&fm=jpg"); */
+}
+
+.form {
+  border-right: rem(1px) solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-7));
+  min-height: rem(900px);
+  /* max-width: rem(450px); */
+  padding-top: rem(80px);
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    max-width: 100%;
+  }
+}
+
+.title {
+  color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
+  font-family: Greycliff CF, var(--mantine-font-family);
+}
+
+.info_bg{
+  background-image: url("https://explore.zoom.us/media/happy-banking-customers.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: -1;
+}

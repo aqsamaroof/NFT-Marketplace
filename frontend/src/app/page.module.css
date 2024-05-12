@@ -1,63 +1,84 @@
+.root {
+  background-color: #11284b;
+  background-size: cover;
+  background-position: center;
+  background-image: linear-gradient(250deg, #001e3fee, #001e3fee),
+    /* url(https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8&auto=format&fit=crop&w=1080&q=80); */
+    url("https://www.dcu.org/content/dcu/en/financial-education-center/credit-cards/credit-101/_jcr_content/root/image_copy_copy_copy.img.jpg/1675719407100.jpg");
+  padding-top: calc(var(--mantine-spacing-xl) * 3);
+  padding-bottom: calc(var(--mantine-spacing-xl) * 3);
+}
+
+.inner {
+  display: flex;
+  justify-content: space-between;
+
+  @media (max-width: $mantine-breakpoint-md) {
+    flex-direction: column;
+  }
+}
+
+.image {
+  @media (max-width: $mantine-breakpoint-md) {
+    display: none;
+  }
+}
+
+.content {
+  padding-top: calc(var(--mantine-spacing-xl) * 2);
+  padding-bottom: calc(var(--mantine-spacing-xl) * 2);
+  margin-right: calc(var(--mantine-spacing-xl) * 3);
+
+  @media (max-width: $mantine-breakpoint-md) {
+    margin-right: 0;
+  }
+}
+
+.title {
+  color: var(--mantine-color-white);
+  font-family: Greycliff CF, var(--mantine-font-family);
+  font-weight: 900;
+  line-height: 1.05;
+  max-width: rem(500px);
+  font-size: rem(48px);
+
+  @media (max-width: $mantine-breakpoint-md) {
+    max-width: 100%;
+    font-size: rem(34px);
+    line-height: 1.15;
+  }
+}
+
+.description {
+  color: var(--mantine-color-white);
+  opacity: 0.75;
+  max-width: rem(500px);
+
+  @media (max-width: $mantine-breakpoint-md) {
+    max-width: 100%;
+  }
+}
+
+.control {
+  padding-left: rem(50px);
+  padding-right: rem(50px);
+  font-family: Greycliff CF, var(--mantine-font-family);
+  font-size: rem(22px);
+
+  @media (max-width: $mantine-breakpoint-md) {
+    width: 100%;
+  }
+}
+
 .wrapper {
-    position: relative;
-    box-sizing: border-box;
-    background-color: light-dark(var(--mantine-color-white), var(--mantine-color-dark-8));
-  }
-  
-  .inner {
-    position: relative;
-    padding-top: rem(200px);
-    padding-bottom: rem(120px);
-  
-    @media (max-width: $mantine-breakpoint-sm) {
-      padding-bottom: rem(80px);
-      padding-top: rem(80px);
-    }
-  }
-  
-  .title {
-    font-family:
-      Greycliff CF,
-      var(--mantine-font-family);
-    font-size: rem(62px);
-    font-weight: 900;
-    line-height: 1.1;
-    margin: 0;
-    padding: 0;
-    color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
-  
-    @media (max-width: $mantine-breakpoint-sm) {
-      font-size: rem(42px);
-      line-height: 1.2;
-    }
-  }
-  
-  .description {
-    margin-top: var(--mantine-spacing-xl);
-    font-size: rem(24px);
-  
-    @media (max-width: $mantine-breakpoint-sm) {
-      font-size: rem(18px);
-    }
-  }
-  
-  .controls {
-    margin-top: calc(var(--mantine-spacing-xl) * 2);
-  
-    @media (max-width: $mantine-breakpoint-sm) {
-      margin-top: var(--mantine-spacing-xl);
-    }
-  }
-  
-  .control {
-    height: rem(54px);
-    padding-left: rem(38px);
-    padding-right: rem(38px);
-  
-    @media (max-width: $mantine-breakpoint-sm) {
-      height: rem(54px);
-      padding-left: rem(18px);
-      padding-right: rem(18px);
-      flex: 1;
-    }
-  }
+  padding: calc(var(--mantine-spacing-xl) * 2) var(--mantine-spacing-xl);
+}
+
+/* .title {
+  font-family: Greycliff CF, var(--mantine-font-family);
+  font-size: rem(36px);
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: var(--mantine-spacing-md);
+  color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
+} */
