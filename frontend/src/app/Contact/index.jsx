@@ -38,7 +38,7 @@ export function ContactUs() {
         console.log(values);
         // console.log(import.meta.env.VITE_API_URL);
 
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/contact/add`, {
+        const res = await fetch('http://localhost:5000/contact/add', {
             method: 'POST',
             body: JSON.stringify(values),
             headers: {

@@ -3,6 +3,7 @@ const express = require('express');
 const userRouter = require('./routers/userRouter');
 const nftRouter = require('./routers/nftRouter');
 const utilRouter = require('./routers/utils');
+const contactRouter = require('./routers/contactRouter');
 
 //initialize express app
 const app = express();
@@ -23,6 +24,7 @@ app.use(express.json());
 app.use('/user', userRouter);
 app.use('/nft', nftRouter);
 app.use('/util', utilRouter);
+app.use('/contact', contactRouter);
 
 app.use(express.static('./static/uploads'));
 
