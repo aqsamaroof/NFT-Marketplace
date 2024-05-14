@@ -19,15 +19,14 @@ import {
     Title,
 } from '@mantine/core';
 import { IconAt, IconKey, IconUser } from '@tabler/icons-react';
-import { notifications } from '@mantine/notifications';
 import classes from './login.module.css';
-import { GoogleButton } from '../GoogleButton';
-import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { enqueueSnackbar } from 'notistack';
-import UseAppContext from '../../AppContext';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import UseAppContext from '@/context/AppContext';
 
-export function Login() {
+export default function Login() {
     const [type, toggle] = useToggle(['login', 'register']);
 
 
@@ -35,7 +34,7 @@ export function Login() {
 
     const theme = useMantineTheme();
 
-    const navigate = useNavigate();
+    const router = useRouter();
 
     const { setCurrentUser, setLoggedIn } = UseAppContext();
     const computedColorScheme = useComputedColorScheme('auto', { getInitialValueInEffect: true });
@@ -65,7 +64,7 @@ export function Login() {
         console.log(values);
         // console.log(import.meta.env.VITE_API_URL);
 
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/user/auth`, {
+        const res = await fetch(`http://localhost:5000/user/auth`, {
             method: 'POST',
             body: JSON.stringify(values),
             headers: {
@@ -83,11 +82,10 @@ export function Login() {
             if (data.role === 'admin') {
 
                 sessionStorage.setItem('admin', JSON.stringify(data));
-                navigate('/admin/manageuser');
+                router.push('/admin/manageuser');
             } else if (data.role === 'user') {
-
                 sessionStorage.setItem('user', JSON.stringify(data));
-                navigate('/applicationform');
+                router.push('/user/create-nft');
             }
             setLoggedIn(true);
             setCurrentUser(data);
@@ -159,14 +157,14 @@ export function Login() {
                     </Stack>
 
                     <Group justify="space-between" mt="xl">
-                        <Anchor component={Link} to="/signup" c="dimmed" size="xs">
+                        <Anchor component={Link} href="/signup" c="dimmed" size="xs">
                             Don't have an account? Register
                         </Anchor>
                         <Button type="submit" radius="xl">
                             Login
                         </Button>
                     </Group>
-                    <Anchor style={{ textAlign: 'center', display: 'block' }} mt={30} component={Link} to="/resetpassword" c="dimmed" size="xs">
+                    <Anchor style={{ textAlign: 'center', display: 'block' }} mt={30} component={Link} href="/resetpassword" c="dimmed" size="xs">
                         Having Trouble Signing in?
                     </Anchor>
                 </form>

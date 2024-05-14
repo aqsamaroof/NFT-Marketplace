@@ -12,13 +12,12 @@ import {
 } from '@mantine/core';
 import classes from './signup.module.css';
 import { useForm } from '@mantine/form';
-import { notifications } from '@mantine/notifications';
 import { enqueueSnackbar } from 'notistack';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 
-export function Signup() {
+export default function Signup() {
 
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const signupForm = useForm({
     initialValues: {
@@ -39,9 +38,8 @@ export function Signup() {
 
   const handleSubmitForm = async (values) => {
     console.log(values);
-    // console.log(import.meta.env.VITE_API_URL);
 
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/user/add`, {
+    const res = await fetch(`http://localhost:5000/user/add`, {
       method: 'POST',
       body: JSON.stringify(values),
       headers: {
@@ -53,7 +51,7 @@ export function Signup() {
 
     if (res.status === 200) {
       enqueueSnackbar('User added successfully', { variant: 'success' });
-      navigate('/login');
+      router.push('/login');
 
     } else {
       enqueueSnackbar('Something went wrong', { variant: 'error' });

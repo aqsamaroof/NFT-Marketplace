@@ -1,10 +1,10 @@
-'use client';
 import { useState } from 'react';
 import { Container, Group, Burger, ActionIcon, useMantineColorScheme, useComputedColorScheme, Title, Avatar, Menu, rem, Flex } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import classes from './navbar.module.css';
 import { IconLogout, IconMessageCircle, IconMoon, IconPhoto, IconSettings, IconSun, IconUser } from '@tabler/icons-react';
 import cx from 'clsx';
+import app_config from '../appConfig';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import UseAppContext from '@/context/AppContext';
@@ -14,7 +14,7 @@ const links = [
   { link: '/applicationform', label: 'Application Form' }
 ];
 
-const Navbar = () => {
+export function Navbar() {
   const [opened, { toggle }] = useDisclosure(false);
   const router = useRouter();
 
@@ -44,7 +44,7 @@ const Navbar = () => {
       <Container size="md" className={classes.inner}>
         <Flex justify={'center'} align={'center'} gap={10}>
           <img src={'/logo.png'} alt="logo" style={{ width: rem(40), height: rem(40) }} />
-          <Title order={3}> NFT Marketplace</Title>
+          <Title order={3}>{app_config.title}</Title>
         </Flex>
         <Group gap={5} visibleFrom="xs">
           {items}
@@ -124,5 +124,3 @@ const Navbar = () => {
     </header>
   );
 }
-
-export default Navbar;

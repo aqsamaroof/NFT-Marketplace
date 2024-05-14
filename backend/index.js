@@ -1,20 +1,33 @@
 //import express
-const express =require('express');
-const postRouter=require('./routers/postRouter');
+const express = require('express');
+const userRouter = require('./routers/userRouter');
+const nftRouter = require('./routers/nftRouter');
+const utilRouter = require('./routers/utils');
+
 //initialize express app
-const app=express();
-const port=5000;
+const app = express();
+const port = 5000;
+const cors = require('cors');
+
+
+// middlewares
+app.use(
+    cors({
+        origin: ["http://localhost:3000"],
+    })
+);
+
+app.use(express.json());
 
 //middleware
-app.use('/post', postRouter);
+app.use('/user', userRouter);
+app.use('/nft', nftRouter);
+app.use('/util', utilRouter);
 
+app.use(express.static('./static/uploads'));
 
-app.get('/', (req,res)=> {
-res.send('response from express');
-
+app.get('/', (req, res) => {
+    res.send('response from express');
 });
 
-app.get('/add', (req,res)=>{
-    res.send('add response from express');
-});
-app.listen(port,()=>{console.log('server started');});
+app.listen(port, () => { console.log('server started'); });
