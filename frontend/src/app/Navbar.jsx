@@ -11,7 +11,7 @@ import UseAppContext from '@/context/AppContext';
 
 const links = [
   { link: '/', label: 'Home' },
-  { link: '/applicationform', label: 'Application Form' }
+  { link: '/browse', label: 'Browse NFTs' }
 ];
 
 export function Navbar() {
@@ -44,7 +44,7 @@ export function Navbar() {
       <Container size="md" className={classes.inner}>
         <Flex justify={'center'} align={'center'} gap={10}>
           <img src={'/logo.png'} alt="logo" style={{ width: rem(40), height: rem(40) }} />
-          <Title order={3}>{app_config.title}</Title>
+          <Title order={3}>NFT Marketplace</Title>
         </Flex>
         <Group gap={5} visibleFrom="xs">
           {items}
@@ -64,20 +64,6 @@ export function Navbar() {
                   data-active={pathname === "/signup" || undefined}
                 >
                   Signup
-                </Link>
-                <Link
-                  href={"/banklogin"}
-                  className={classes.link}
-                  data-active={pathname === "/banklogin" || undefined}
-                >
-                  Bank Login
-                </Link>
-                <Link
-                  href={"/admin"}
-                  className={classes.link}
-                  data-active={pathname === "/admin" || undefined}
-                >
-                  Admin
                 </Link>
               </>
             )

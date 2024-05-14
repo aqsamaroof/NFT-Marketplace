@@ -58,7 +58,9 @@ export function Footer() {
       <Container className={classes.inner}>
         <div className={classes.logo}>
           {/* <MantineLogo size={30} /> */}
-          <h2>Credit Card Application</h2>
+          <h2>
+            NFT Marketplace
+          </h2>
           <Text size="xs" c="dimmed" className={classes.description}>
             Build fully functional accessible web applications faster than ever
           </Text>

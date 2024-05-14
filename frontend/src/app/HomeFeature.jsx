@@ -63,11 +63,11 @@ import {
           </Group> */}
   
         <Title order={2} className={classes.title} ta="center" mt="sm">
-          Apply for Credit Card in 3 Easy Steps
+          Browse your favorite NFTs
         </Title>
   
         <Text c="dimmed" className={classes.description} ta="center" mt="md">
-          Better Credit Score has better chances of Credit Card Application approfa-flip-vertical.
+            Buy and sell NFTs with ease
         </Text>
   
         <SimpleGrid cols={{ base: 1, md: 3 }} spacing="xl" mt={50}>

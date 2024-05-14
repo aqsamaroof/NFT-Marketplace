@@ -82,7 +82,7 @@ const Home = () => {
               </Title>
 
               <Text className={classes.description} mt={30}>
-                Apply for a credit card with ease. We have simplified the process for you. Just fill in the details and you are good to go.
+                Create, sell and collect unique digital assets on blockchain
               </Text>
 
               <Button

@@ -7,8 +7,6 @@ import { useState } from "react";
 
 const ProductCard = ({ productData }) => {
 
-
-  
   const router = useRouter();
 
   const stringSlicer = (str, limit) => {
@@ -22,7 +20,7 @@ const ProductCard = ({ productData }) => {
 
     <Card withBorder radius="md" className={classes.card}
       onClick={
-        () => router.push('/productdetails/' + productData._id)
+        () => router.push('/nft-details/' + productData._id)
       }
     >
       <Card.Section className={classes.imageSection}>

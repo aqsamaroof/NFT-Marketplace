@@ -70,4 +70,17 @@ router.delete("/delete/:id", (req, res) => {
     });
 });
 
+// getbyid
+router.get("/getbyid/:id", (req, res) => {
+  Model.findById(req.params.id)
+    .then((result) => {
+      if (result) res.json(result);
+      else res.status(401).json({ message: "id not found" });
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).json(err);
+    });
+});
+
 module.exports = router;

@@ -2,7 +2,6 @@
 import { Card, Image, Avatar, Text, Group, Loader, Box, Grid, Container, Title, Flex, Stack, Button, ActionIcon, Paper, Rating, Textarea } from '@mantine/core';
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
-import useCartContext from '@/context/CartContext';
 import { IconArrowLeft, IconCheck, IconTrashFilled } from '@tabler/icons-react';
 import { enqueueSnackbar } from 'notistack';
 import ReactTimeAgo from 'react-time-ago';
@@ -12,7 +11,6 @@ const NFTDetails = () => {
   const { id } = useParams();
 
   const [productDetails, setProductDetails] = useState(null);
-  const { cartItems, addItem, checkItemExists, cartOpened, toggleCart } = useCartContext();
   const [reviewList, setReviewList] = useState([]);
   const [rating, setRating] = useState(3);
   const reviewRef = useRef();
@@ -41,7 +39,7 @@ const NFTDetails = () => {
   }
 
   const getProductDetails = () => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/product/getbyid/${id}`)
+    fetch(`http://localhost:5000/nft/getbyid/${id}`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -50,7 +48,6 @@ const NFTDetails = () => {
   }
 
   useEffect(() => {
-    fetchReviews();
     getProductDetails();
   }, []);
 
@@ -68,7 +65,7 @@ const NFTDetails = () => {
         <Grid gutter={{ base: 5, xs: 'md', md: 'xl', xl: 50 }}>
           <Grid.Col span={{ md: 6, sm: 12 }}>
             <img
-              src={`${process.env.NEXT_PUBLIC_API_URL}/${productDetails.image[0]}`}
+              src={`http://localhost:5000/${productDetails.image}`}
               width={'100%'}
             />
           </Grid.Col>
@@ -81,7 +78,7 @@ const NFTDetails = () => {
               <IconArrowLeft style={{ width: '70%', height: '70%' }} stroke={1.5} />
             </ActionIcon>
             <Title order={2}>
-              {productDetails.title}
+              {productDetails.name}
             </Title>
             <Rating value={calculateAverageRating()} color='blue' size="md" readOnly />
             <Text mt="xs" mb="md">
@@ -89,93 +86,55 @@ const NFTDetails = () => {
             </Text>
             <Flex>
               <Title order={1} mb="md">
-                ₹{productDetails.price}
+                {productDetails.floorPrice} {productDetails.currency}
               </Title>
-              {
-                displayStock(productDetails.stock)
-              }
             </Flex>
 
             <Grid gutter={{ base: 5, xs: 'md', md: 'xl', xl: 50 }} >
               <Grid.Col span={3}>
-                <Text c='dimmed' fw={700}>Material : </Text>
+                <Text c='dimmed' fw={700}>Chain : </Text>
               </Grid.Col>
               <Grid.Col span={9} tt={'capitalize'}>
-                <Text fw={700}>{productDetails.material}</Text>
+                <Text fw={700}>{productDetails.chain}</Text>
               </Grid.Col>
             </Grid>
             <Grid gutter={{ base: 5, xs: 'md', md: 'xl', xl: 50 }} >
               <Grid.Col span={3}>
-                <Text c='dimmed' fw={700}>Color : </Text>
+                <Text c='dimmed' fw={700}>Category : </Text>
               </Grid.Col>
               <Grid.Col span={9} tt={'capitalize'}>
-                <Text fw={700}>{productDetails.color}</Text>
+                <Text fw={700}>{productDetails.category}</Text>
               </Grid.Col>
             </Grid>
 
             <Grid gutter={{ base: 5, xs: 'md', md: 'xl', xl: 50 }} >
               <Grid.Col span={3}>
-                <Text c='dimmed' fw={700}>Embroidery : </Text>
+                <Text c='dimmed' fw={700}>Rarity : </Text>
               </Grid.Col>
               <Grid.Col span={9} tt={'capitalize'}>
-                <Text fw={700}>{productDetails.embroidery}</Text>
+                <Text fw={700}>{productDetails.rarity}</Text>
               </Grid.Col>
             </Grid>
             <Grid gutter={{ base: 5, xs: 'md', md: 'xl', xl: 50 }} >
               <Grid.Col span={3}>
-                <Text c='dimmed' fw={700}>Stitched : </Text>
+                <Text c='dimmed' fw={700}>Volume : </Text>
               </Grid.Col>
               <Grid.Col span={9} tt={'capitalize'}>
-                <Text fw={700}>{productDetails.stitched ? 'Yes' : 'No'}</Text>
+                <Text fw={700}>{productDetails.volume} ETH</Text>
               </Grid.Col>
             </Grid>
 
 
             <Grid gutter={{ base: 5, xs: 'md', md: 'xl', xl: 50 }} align='center' >
               <Grid.Col span={3}>
-                <Text c='dimmed' fw={700}>Sizes Available : </Text>
+                <Text c='dimmed' fw={700}>Published : </Text>
               </Grid.Col>
               <Grid.Col span={9} >
-                <ActionIcon.Group>
-                  {
-                    productDetails.sizes.split(',').map((size) => (
-                      <ActionIcon px={20} variant={
-                        selSize === size ? 'filled' : 'outline'
-                      } size="lg" aria-label="Size"
-                        onClick={() => setSelSize(size)}
-                      >
-                        <Text fw={'bold'}>{size}</Text>
-                      </ActionIcon>
-                    ))
-                  }
-
-                </ActionIcon.Group>
+                <Text fw={700}>{new Date(productDetails.createdAt).toDateString()}</Text>
               </Grid.Col>
             </Grid>
-            <Grid gutter={{ base: 5, xs: 'md', md: 'xl', xl: 50 }} align='center' >
-              <Grid.Col span={3}>
-                <Text c='dimmed' fw={700}>Colors : </Text>
-              </Grid.Col>
-              <Grid.Col span={9} >
-                <ActionIcon.Group>
-                  {
-                    productDetails.color.split(',').map((col) => (
-                      <ActionIcon color={col} variant={'filled'} size="lg" aria-label="Size"
-                        onClick={() => setSelColor(col)}
-                      >
-                        {
-                          selColor === col ? <IconCheck color="white" size={20} /> : null
-                        }
-                      </ActionIcon>
-                    ))
-                  }
-                </ActionIcon.Group>
-              </Grid.Col>
-            </Grid>
-
             <Stack direction="horizontal" spacing="md" mt="lg">
               <Button
-                disabled={checkItemExists(productDetails._id)}
                 onClick={() => {
                   if (!selColor || !selSize) {
                     enqueueSnackbar('Please select size and color', { variant: 'warning' });
@@ -188,16 +147,7 @@ const NFTDetails = () => {
                 variant="outline"
                 color="blue"
               >
-                Add to Cart
-              </Button>
-              <Button
-                onClick={toggleCart.open}
-                radius="xl"
-                size="lg"
-                variant="filled"
-                color="blue"
-              >
-                View Cart
+                Buy NFT
               </Button>
             </Stack>
 
@@ -307,11 +257,11 @@ const NFTDetails = () => {
       <Container py={50} size={'xl'}>
         {displayProductDetails()}
       </Container>
-      <Container mt={'lg'}>
+      {/* <Container mt={'lg'}>
         <Title order={2}>Reviews</Title>
         {ratingForm()}
         {displayReviews()}
-      </Container>
+      </Container> */}
     </Box>
   );
 }
