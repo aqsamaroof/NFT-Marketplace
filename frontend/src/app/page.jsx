@@ -3,6 +3,10 @@ import { Button, Container, Grid, SimpleGrid, Text, ThemeIcon, Title, rem } from
 import classes from './page.module.css';
 import { IconCircleDotted, IconFileCode, IconFlame, IconReceiptOff } from "@tabler/icons-react";
 import Link from "next/link";
+import { HomeFeatures } from "./HomeFeature";
+import { Footer } from "./Footer";
+import { ContactUs } from "./Contact";
+import { Navbar } from "./Navbar";
 // import { ContactUs } from "../Contact";
 // import { Footer } from "../Footer";
 // import { HomeFeatures } from "../HomeFeatures";
@@ -56,6 +60,7 @@ const Home = () => {
 
   return (
     <div>
+      <Navbar />
       <header className={classes.root}>
         <Container size="lg">
           {/* <div className={classes.inner}>
@@ -71,13 +76,13 @@ const Home = () => {
                   variant="gradient"
                   gradient={{ from: 'pink', to: 'yellow' }}
                 >
-                  Credit Card
+                  NFT
                 </Text>{' '}
-                Application Simplified
+                Marketplace
               </Title>
 
               <Text className={classes.description} mt={30}>
-                Apply for a credit card with ease. We have simplified the process for you. Just fill in the details and you are good to go.
+                Create, sell and collect unique digital assets on blockchain
               </Text>
 
               <Button
@@ -100,9 +105,9 @@ const Home = () => {
                     </div> */}
         </Container>
       </header>
-      {/* <HomeFeatures /> */}
-      {/* <ContactUs /> */}
-      {/* <Footer /> */}
+      <HomeFeatures />
+      <ContactUs />
+      <Footer />
     </div>
   )
 }
