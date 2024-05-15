@@ -1,5 +1,5 @@
 'use client';
-import { Paper, Text, TextInput, Textarea, Button, Group, SimpleGrid, Container, NativeSelect, Select } from '@mantine/core';
+import { Paper, Text, TextInput, Textarea, Button, Group, SimpleGrid, Container, NativeSelect, Select, Title } from '@mantine/core';
 // import bg from './bg.svg';
 import classes from './addproduct.module.css';
 import { DropzoneButton } from './Dropzone';
@@ -100,12 +100,13 @@ function CreateNFT() {
     return (
         <Container>
             <Paper shadow="md" radius="lg">
+                <Title align="center" my={30}>NFT Marketplace</Title>
                 <div className={classes.wrapper}>
                     <div className={classes.contacts} >
                         <Text fz="lg" fw={700} className={classes.title} c="#fff">
-                            Contact information
+                            Create New NFT
                         </Text>
-
+                        <img style={{width: 300}} src="https://cdni.iconscout.com/illustration/premium/thumb/nft-wallet-6263549-5174751.png?f=webp" alt="" />
 
                     </div>
 

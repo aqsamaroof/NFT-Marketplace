@@ -1,11 +1,56 @@
 "use client";
-import { ActionIcon, AppShell, Badge, Box, Burger, Button, Card, Checkbox, Container, Grid, Group, Image, RangeSlider, Text, TextInput, Title, rem, useMantineTheme } from '@mantine/core';
+import { ActionIcon, AppShell, Badge, Box, Burger, Button, Card, Checkbox, Container, Grid, Group, Image, RangeSlider, Select, Text, TextInput, Title, rem, useMantineTheme } from '@mantine/core';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation';
-import { IconSearch } from '@tabler/icons-react';
+import { IconRefresh, IconSearch } from '@tabler/icons-react';
 import { IconArrowRight } from '@tabler/icons-react';
 import ProductCard from './ProductCard';
 import { useDisclosure } from '@mantine/hooks';
+
+const chains = [
+    'Ethereum',
+    'Arbitrum',
+    'Avalanche',
+    'Binance Smart Chain',
+    'BNB Chain',
+    'Blast',
+    'Klaytn',
+    'Polygon',
+    'Solana',
+    'Zora'
+]
+
+const currencies = [
+    'ETH',
+    'ARB',
+    'AVAX',
+    'BNB',
+    'BLAST',
+    'KLAY',
+    'MATIC',
+    'SOL',
+    'ZORA'
+];
+
+const rarities = [
+    'Common',
+    'Uncommon',
+    'Rare',
+    'Epic',
+    'Legendary'
+]
+
+const categories = [
+    'Art',
+    'Music',
+    'Video',
+    'Game',
+    'Collectible',
+    'Utility',
+    'Metaverse',
+    'Domain',
+    'Other'
+]
 
 const Browse = () => {
 
@@ -22,16 +67,12 @@ const Browse = () => {
 
     const theme = useMantineTheme();
 
-    const filterByPrice = (priceRange) => {
-        return masterList.filter(product => product.price >= priceRange[0] && product.price <= priceRange[1]);
+    const filterPrice = (price) => {
+        return masterList.filter(product => product.price >= price[0] && product.price <= price[1]);
     }
 
-    const filterByColor = (color) => {
-        return masterList.filter(product => product.color.toLowerCase() === color.toLowerCase());
-    }
-
-    const filterBySize = (selSizes) => {
-        return masterList.filter(product => product.size.some(size => selSizes.includes(size)));
+    const applyFilter = (field, value) => {
+        setProductList(masterList.filter(product => product[field] === value));
     }
 
     const fetchAllProducts = () => {
@@ -72,7 +113,7 @@ const Browse = () => {
     }
 
     const searchProduct = (e) => {
-        setProductList(masterList.filter(product => product.title.toLowerCase().includes(e.target.value.toLowerCase())));
+        setProductList(masterList.filter(product => product.name.toLowerCase().includes(e.target.value.toLowerCase())));
     }
 
     return (
@@ -90,7 +131,6 @@ const Browse = () => {
                     <Group h="100%" px="md">
                         <Burger opened={mobileOpened} onClick={toggleMobile} hiddenFrom="sm" size="sm" />
                         <Burger opened={desktopOpened} onClick={toggleDesktop} visibleFrom="sm" size="sm" />
-                        {/* <MantineLogo size={30} /> */}
                     </Group>
                 </AppShell.Header>
                 <AppShell.Navbar p='md'>
@@ -106,48 +146,45 @@ const Browse = () => {
 
                     />
 
-                    <Title order={4} mt={30}>Category</Title>
-                    <Checkbox.Group
-                        defaultValue={['react']}
-                        // label="Select your favorite frameworks/libraries"
-                        // description="This is anonymous"
-                        withAsterisk
-                    >
-                        <Group mt="xs">
-                            <Checkbox value="react" label="Khadi Cotton" />
-                            <Checkbox value="svelte" label="Shiffon" />
-                            <Checkbox value="ng" label="Cotton" />
-                            <Checkbox value="vue" label="Vescose" />
-                            <Checkbox value="vue" label="Premium" />
-                        </Group>
-                    </Checkbox.Group>
-                    <Title order={4} mt={30}>Size</Title>
-                    <Checkbox.Group
-                        defaultValue={['react']}
-                        // label="Select your favorite frameworks/libraries"
-                        // description="This is anonymous"
-                        withAsterisk
-                    >
-                        <Group mt="xs">
-                            {/* {
-                                sizeOptions.map((size, index) => (
-                                    <Checkbox key={index} value={size} label={size} checked={selSizes.includes(size)} onChange={(e) => {
-                                        if (e.target.checked) {
-                                            setSelSizes([...selSizes, size]);
-                                        } else {
-                                            setSelSizes(selSizes.filter(s => s !== size));
-                                        }
+                    <Button onClick={fetchAllProducts} variant='filled' mt={10} rightSection={
+                        <IconRefresh style={{ width: rem(18), height: rem(18) }} stroke={1.5} />
+                    } >Reset Filter</Button>
 
-                                    }} />
-                                ))
-                            } */}
-                        </Group>
-                    </Checkbox.Group>
+                    <Title order={4} mt={30}>Category</Title>
+                    <Select
+                        placeholder="Pick value"
+                        data={categories}
+                        onChange={(value) => applyFilter('category', value)}
+                    />
+
+                    <Title order={4} mt={30}>Rarity</Title>
+                    <Select
+                        placeholder="Pick value"
+                        data={rarities}
+                        onChange={(value) => applyFilter('rarity', value)}
+                    />
+
+                    <Title order={4} mt={30}>Chain</Title>
+                    <Select
+
+                        placeholder="Pick value"
+                        data={chains}
+                        onChange={(value) => applyFilter('chain', value)}
+                    />
+
+                    <Title order={4} mt={30}>Currency</Title>
+                    <Select
+                        placeholder="Pick value"
+                        data={currencies}
+                        onChange={(value) => applyFilter('currency', value)}
+                    />
+
                 </AppShell.Navbar>
                 <AppShell.Main>
                     <>
                         <Box py={30}>
                             <Container size='lg'>
+                                <Title order={1} align="center" mb={30} >Browse NFTs</Title>
                                 <TextInput
                                     onChange={searchProduct}
                                     radius="xl"

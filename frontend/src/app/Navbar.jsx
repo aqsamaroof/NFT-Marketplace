@@ -94,8 +94,8 @@ export function Navbar() {
                 <Menu.Item onClick={e => router.push('/user/profile')} color='cyan' leftSection={<IconUser style={{ width: rem(14), height: rem(14) }} />}>
                   Profile
                 </Menu.Item>
-                <Menu.Item onClick={e => router.push('/user/applicationstatus')} color='green' leftSection={<IconMessageCircle style={{ width: rem(14), height: rem(14) }} />}>
-                  Application Status
+                <Menu.Item onClick={e => router.push('/user/create-nft')} color='green' leftSection={<IconMessageCircle style={{ width: rem(14), height: rem(14) }} />}>
+                  Create NFT
                 </Menu.Item>
                 <Menu.Item onClick={logout} color='red' leftSection={<IconLogout style={{ width: rem(14), height: rem(14) }} />}>
                   Logout

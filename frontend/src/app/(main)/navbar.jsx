@@ -11,7 +11,7 @@ import UseAppContext from '@/context/AppContext';
 
 const links = [
   { link: '/', label: 'Home' },
-  { link: '/applicationform', label: 'Application Form' }
+  { link: '/browse', label: 'Browse NFTs' }
 ];
 
 const Navbar = () => {
@@ -64,20 +64,6 @@ const Navbar = () => {
                   data-active={pathname === "/signup" || undefined}
                 >
                   Signup
-                </Link>
-                <Link
-                  href={"/banklogin"}
-                  className={classes.link}
-                  data-active={pathname === "/banklogin" || undefined}
-                >
-                  Bank Login
-                </Link>
-                <Link
-                  href={"/admin"}
-                  className={classes.link}
-                  data-active={pathname === "/admin" || undefined}
-                >
-                  Admin
                 </Link>
               </>
             )

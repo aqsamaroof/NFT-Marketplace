@@ -65,7 +65,7 @@ export function DropzoneButton({setSelFilename}) {
       </Dropzone>
 
       <Button className={classes.control} size="md" radius="xl" onClick={() => openRef.current?.()}>
-        Select files
+        Select NFT image
       </Button>
     </div>
   );

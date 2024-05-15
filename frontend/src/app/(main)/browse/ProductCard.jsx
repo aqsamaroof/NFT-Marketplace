@@ -16,6 +16,23 @@ const ProductCard = ({ productData }) => {
     return str;
   }
 
+  const rarityBadge = (rarity) => {
+    switch (rarity) {
+      case 'Common':
+        return 'green';
+      case 'Uncommon':
+        return 'blue';
+      case 'Rare':
+        return 'purple';
+      case 'Epic':
+        return 'pink';
+      case 'Legendary':
+        return 'red';
+      default:
+        return 'gray';
+    }
+  }
+
   return (
 
     <Card withBorder radius="md" className={classes.card}
@@ -43,30 +60,19 @@ const ProductCard = ({ productData }) => {
       <Card.Section className={classes.section} mt="md">
         <Flex justify="space-between">
           <Text fz="sm" c="dimmed" className={classes.label}>
-            material
+            {productData.category}
           </Text>
-          <Badge color="red" variant="filled">30% off</Badge>
+          <Badge color={rarityBadge(productData.rarity)} variant="filled">{productData.rarity}</Badge>
         </Flex>
       </Card.Section>
 
       <Card.Section className={classes.section}>
         <Group gap={30}>
           <div>
-            <Text fz="xl" fw={700} style={{ lineHeight: 1 }}>
-              ₹{productData.price}
-            </Text>
-            <Text fz="sm" c="dimmed" fw={500} style={{ lineHeight: 1 }} mt={3}>
-              per piece
+            <Text fz="xl" fw={700} m={0} style={{ lineHeight: 1 }}>
+              {productData.floorPrice} {productData.currency}
             </Text>
           </div>
-
-          {/* <Button disabled={
-            checkItemExists(productData._id)
-          } fullWidth radius="xl" mt={10} style={{ flex: 1 }} onClick={() => addItem(productData)}>
-            <IconShoppingCart /> {
-              checkItemExists(productData._id) ? 'Added to cart' : 'Add to cart'
-            }
-          </Button> */}
         </Group >
       </Card.Section>
     </Card>
